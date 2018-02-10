@@ -1,5 +1,11 @@
 package gospeakGoogleAssistant
 
+import (
+	"strconv"
+
+	"github.com/blforce/gospeakCommon"
+)
+
 type userProfile struct {
 	DisplayName string `json:"displayName"`
 	GivenName   string `json:"givenName"`
@@ -109,10 +115,19 @@ func (r Request) GetArgument(slot string) string {
 	return ""
 }
 
+func (r Request) GetArgumentInt(slot string) int64 {
+	result, _ := strconv.ParseInt(r.GetArgument(slot), 10, 64)
+	return result
+}
+
 func (r Request) GetIntent() string {
 	return ""
 }
 
 func (r Request) GetPlatform() int {
-	return 1
+	return gospeakCommon.GoogleAssistant
+}
+
+func (r Request) GetResponse() gospeakCommon.Response {
+	return nil
 }
